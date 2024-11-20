@@ -86,3 +86,91 @@ INNER JOIN sales_order_job_links as sojl ON jobs.jmp_job_id = sojl.omj_job_id
 INNER JOIN sales_orders as so ON so.omp_sales_order_id = sojl.omj_sales_order_id
 WHERE jmo_part_id IS NOT NULL
 GROUP BY jmo_part_id, jmo_actual_production_hours, omp_order_subtotal_base
+
+--3.  Jobs and Parts (Neal, Steven, Cameron, David, Hunter)
+
+--Which Jobs are most common UNTIL OCTOBER 2023 ID COUNT
+
+SELECT jmo_job_operation_id, COUNT(jmo_job_operation_id) as total_job_count_2023
+FROM job_operations_2023
+WHERE jmo_start_date >= '2023-01-01 00:00:00' AND jmo_start_date <= '2023-10-31 00:00:00'
+GROUP BY jmo_job_operation_id
+ORDER BY total_job_count_2023 DESC
+
+--
+SELECT jmo_job_operation_id, COUNT(jmo_job_operation_id) as total_job_count_2023
+FROM job_operations_2023
+WHERE jmo_start_date >= '2023-01-01 00:00:00' AND jmo_start_date <= '2023-10-31 00:00:00'
+GROUP BY jmo_job_operation_id
+ORDER BY total_job_count_2023 DESC
+
+-- FULL 2023 ID COUNT
+SELECT jmo_job_operation_id, COUNT(jmo_job_operation_id) as total_job_count_2023
+FROM job_operations_2023
+GROUP BY jmo_job_operation_id
+ORDER BY total_job_count_2023 DESC
+
+-- Until OCTOBER 2024 ID COUNT
+SELECT jmo_job_operation_id, COUNT(jmo_job_operation_id) as total_job_count_2024
+FROM job_operations_2024
+WHERE jmo_start_date<= '2024-10-31 00:00:00'
+GROUP BY jmo_job_operation_id
+ORDER BY total_job_count_2024 DESC
+
+-- Until FULL 2024 ID COUNT
+SELECT jmo_job_operation_id, COUNT(jmo_job_operation_id) as total_job_count_2024
+FROM job_operations_2024
+GROUP BY jmo_job_operation_id
+ORDER BY total_job_count_2024 DESC
+
+--JOB DESCRIPTION COUNT OCTOBER 2023 SHORT DESCRIPTION COUNT
+SELECT jmo_process_short_description, COUNT(jmo_process_short_description) as total_process_count_2023
+FROM job_operations_2023
+WHERE jmo_start_date>= '2023-01-01 00:00:00' AND jmo_start_date<= '2023-10-31 00:00:00'
+GROUP BY jmo_process_short_description
+ORDER BY total_process_count_2023 DESC
+
+-- FULL 2023  SHORT DESCRIPTION COUNTS
+SELECT jmo_process_short_description, COUNT(jmo_process_short_description) as total_process_count_2023
+FROM job_operations_2023
+GROUP BY jmo_process_short_description
+ORDER BY total_process_count_2023 DESC
+
+--UNTIL OCTOBER 2024 SHORT DESCRIPTION COUNTS
+SELECT jmo_process_short_description, COUNT(jmo_process_short_description) as total_process_count_2024
+FROM job_operations_2024
+WHERE jmo_start_date<= '2024-10-31 00:00:00'
+GROUP BY jmo_process_short_description
+ORDER BY total_process_count_2024 DESC
+
+--FULL 2024
+SELECT jmo_process_short_description, COUNT(jmo_process_short_description) as total_process_count_2024
+FROM job_operations_2024
+GROUP BY jmo_process_short_description
+ORDER BY total_process_count_2024 DESC
+
+--------------------
+
+SELECT jmo_job_operation_id, jmo_process_short_description
+FROM job_operations_2023
+
+
+SELECT y23.jmo_job_operation_id, y24.jmo_job_operation_id
+FROM job_operations_2023 as y23
+LEFT JOIN job_operations_2024 as y24 ON y23.jmo_job_id = y24.jmo_job_id
+
+-- 10 - Laser Cutting/Laser Cut Print, 20 - Powder Coating/WELD/Manual Press Brake 30 - HOT DIPS Galvanizing/WRAP/Standard Inspection
+
+
+SELECT *
+FROM job_operations_2024
+--Which Parts are most common
+--Find completion time for top x jobs - Distribution (Boxplot)
+--Find Jobs/Parts bottleneck if possible
+
+
+SELECT jmo_job_id, jmo_process_id, jmo_process_short_description,jmo_created_date, jmo_inspection_status, jmo_inspection_complete, jmo_start_date, ujmo_pfmrelease_date
+FROM job_operations_2023
+
+SELECT jmo_process_long_description_text
+FROM job_operations_2023
