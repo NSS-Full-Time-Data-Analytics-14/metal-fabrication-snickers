@@ -174,3 +174,7 @@ FROM job_operations_2023
 
 SELECT jmo_process_long_description_text
 FROM job_operations_2023
+
+SELECT jmo_job_operation_id, jmo_process_short_description
+FROM job_operations_2024
+GROUP BY jmo_job_operation_id, jmo_process_short_description
