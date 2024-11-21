@@ -178,3 +178,21 @@ FROM job_operations_2023
 SELECT jmo_job_operation_id, jmo_process_short_description
 FROM job_operations_2024
 GROUP BY jmo_job_operation_id, jmo_process_short_description
+
+SELECT jmo_part_id, COUNT(jmo_part_id) total_parts_count
+FROM job_operations_2023
+GROUP BY jmo_part_id
+ORDER BY total_parts_count DESC
+
+SELECT imp_part_class_id, imp_part_type, COUNT(imp_part_class_id)
+FROM parts
+GROUP BY imp_part_class_id, imp_part_type
+ORDER BY count DESC
+
+SELECT jmo_part_id, COUNT(jmo_part_id)
+FROM job_operations_2024
+GROUP BY jmo_part_id
+ORDER BY count DESC
+
+
+
